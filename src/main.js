@@ -263,14 +263,15 @@ const render = (container, template, place) => {
 };
 
 const siteMainElement = document.querySelector(`.page-body`);
+
 const siteHeaderElement = document.querySelector(`.page-header`);
-const siteTripElement = siteHeaderElement.querySelector(`.trip-main`);
+const siteTripInfoElement = siteHeaderElement.querySelector(`.trip-main`);
 const siteControlsElement = siteHeaderElement.querySelector(`.trip-main__trip-controls`);
 
 const siteTipsElement = siteMainElement.querySelector(`.trip-events`);
 
 console.log(siteTipsElement);
 
-render(siteHeaderElement, createSiteMenuTemplate(), `afterbegin`);
+render(siteTripInfoElement, createSiteMenuTemplate(), `afterbegin`);
 render(siteControlsElement, createControlsMenuTemplate(), `afterbegin`);
 render(siteTipsElement, createTipEventTemplate(), `afterbegin`);
