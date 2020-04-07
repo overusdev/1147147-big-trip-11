@@ -1,4 +1,4 @@
-"use_strict";
+'use_strict';
 
 import {createSiteMenuTemplate} from './components/site-menu.js';
 import {createControlsMenuTemplate} from './components/controls-menu.js';
