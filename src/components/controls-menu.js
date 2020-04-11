@@ -7,24 +7,8 @@ const createFilterMarkup = (id, checked, title) => {
     `
   );
 };
-export const createControlsMenuTemplate = () => {
-  const tripFilters = [
-    {
-      id: `everything`,
-      isChecked: true,
-      title: `Everything`
-    },
-    {
-      id: `future`,
-      isChecked: false,
-      title: `Future`
-    },
-    {
-      id: `past`,
-      isChecked: false,
-      title: `Past`
-    },
-  ].map((it) => createFilterMarkup(it.id, it.isChecked, it.title)).join(`\n`);
+export const createControlsMenuTemplate = (filters) => {
+  const tripFilters = filters.map((it) => createFilterMarkup(it.id, it.isChecked, it.title)).join(`\n`);
 
   return (
     `<h2 class="visually-hidden">Switch trip view</h2>
