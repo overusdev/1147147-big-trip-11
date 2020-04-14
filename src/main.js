@@ -7,6 +7,7 @@ import {createTripDaysTemplate} from './components/trip-days.js';
 import {createPointsListItemsTemplate} from './components/points-list-item.js';
 import {createEditEventTemplate} from './components/edit-event.js';
 import {generateFilters} from './mock/filter.js';
+import {generatePoint} from './mock/trip-point.js';
 
 const POINTS_COUNT = 3;
 const render = (container, template, place) => {
