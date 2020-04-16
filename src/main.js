@@ -8,7 +8,7 @@ import {createPointsListItemsTemplate} from './components/points-list-item.js';
 import {createEditEventTemplate} from './components/edit-event.js';
 import {generateFilters} from './mock/filter.js';
 import {generatePoints} from './mock/trip-point.js';
-import {generatePoint} from './mock/trip-point.js';
+import {generateNewPoint} from './mock/trip-point.js';
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -28,6 +28,6 @@ eventsListData.forEach((item) => {
   render(siteListElement, createPointsListItemsTemplate(item), `beforeend`);
 });
 
-const newWayPointData = generatePoint();
+const newWayPointData = generateNewPoint();
 render(siteTripsElement, createNewPointTemplate(newWayPointData), `afterbegin`);
 render(siteListElement, createEditEventTemplate(), `afterbegin`);

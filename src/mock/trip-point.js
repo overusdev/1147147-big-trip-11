@@ -15,7 +15,7 @@ const generateDescriptionText = () => {
   return resultText;
 };
 
-const generatePoint = () => {
+const generateNewPoint = () => {
 
   // debugger
 
@@ -84,16 +84,76 @@ const generatePoint = () => {
   };
 };
 
+const generatePointType = () => {
+  let pointTypeList = [
+    {
+      type: `Taxi`
+    },
+    {
+      type: `Bus`
+    },
+    {
+      type: `Train`
+    },
+    {
+      type: `Ship`
+    },
+    {
+      type: `Transport`
+    },
+    {
+      type: `Drive`
+    },
+    {
+      type: `Flight`,
+      checked: true
+    },
+  ];
+};
+
+const generatePointItem = () => {
+  return {
+    pointType: `Taxi`,
+    wayTo: `Amsterdam`,
+    price: 10,
+    beginTime: `24/12/2019 15:00`,
+    endTime: `25/12/2019 16:00`,
+    pointTypeList: [
+      {
+        type: `Taxi`
+      },
+      {
+        type: `Bus`
+      },
+      {
+        type: `Train`
+      },
+      {
+        type: `Ship`
+      },
+      {
+        type: `Transport`
+      },
+      {
+        type: `Drive`
+      },
+      {
+        type: `Flight`,
+        checked: true
+      },
+    ],
+  };
+};
+
 const generatePoints = (count) => {
   let result = [];
   for (let i = 0; i < count; i++) {
-    result.push(generatePoint());
+    // result.push(generateNewPoint());
+    result.push(generatePointItem());
   }
 
   return result;
 };
 
-// generatePoints(10);
-
-export {generatePoint};
+export {generateNewPoint};
 export {generatePoints};
