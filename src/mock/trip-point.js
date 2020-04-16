@@ -24,6 +24,30 @@ const generatePoint = () => {
     price: 10,
     beginTime: `24/12/2019 15:00`,
     endTime: `25/12/2019 16:00`,
+    wayTypeList: [
+      {
+        type: `Taxi`
+      },
+      {
+        type: `Bus`
+      },
+      {
+        type: `Train`
+      },
+      {
+        type: `Ship`
+      },
+      {
+        type: `Transport`
+      },
+      {
+        type: `Drive`
+      },
+      {
+        type: `Flight`,
+        checked: true
+      },
+    ],
     destination: {
       place: [
         `Amsterdam`,
@@ -69,7 +93,7 @@ const generatePoints = (count) => {
   return result;
 };
 
-generatePoints(10);
+// generatePoints(10);
 
 export {generatePoint};
 export {generatePoints};
