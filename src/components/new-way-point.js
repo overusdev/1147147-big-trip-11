@@ -1,4 +1,22 @@
-export const createTripEventTemplate = () => {
+const createPlaceOptionMarkup = (place) => {
+  return (
+    `<option value="${place}">${place}</option>`
+  );
+};
+const createPlacesMarkup = (places) => {
+  const placesOptions = places.map((it) => createPlaceOptionMarkup(it));
+  return (
+    `<label class="event__label  event__type-output" for="event-destination-1">
+        Flight to
+      </label>
+      <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Geneva" list="destination-list-1">
+      <datalist id="destination-list-1">
+        ${placesOptions}
+      </datalist>`
+  );
+};
+export const createNewPointTemplate = (item) => {
+  const generateDestinationList = createPlacesMarkup(item.destination.place);
   return (
     `<h2 class="visually-hidden">Trip events</h2>
         <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
@@ -103,16 +121,7 @@ export const createTripEventTemplate = () => {
             </div>
 
             <div class="event__field-group  event__field-group--destination">
-            <label class="event__label  event__type-output" for="event-destination-1">
-                Flight to
-            </label>
-            <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Geneva" list="destination-list-1">
-            <datalist id="destination-list-1">
-                <option value="Amsterdam"></option>
-                <option value="Geneva"></option>
-                <option value="Chamonix"></option>
-                <option value="Saint Petersburg"></option>
-            </datalist>
+                ${generateDestinationList}
             </div>
 
             <div class="event__field-group  event__field-group--time">

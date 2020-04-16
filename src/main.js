@@ -2,14 +2,12 @@
 
 import {createSiteMenuTemplate} from './components/site-menu.js';
 import {createControlsMenuTemplate} from './components/controls-menu.js';
-import {createTripEventTemplate} from './components/trip-event.js';
+import {createNewPointTemplate} from './components/new-way-point.js';
 import {createTripDaysTemplate} from './components/trip-days.js';
 import {createPointsListItemsTemplate} from './components/points-list-item.js';
 import {createEditEventTemplate} from './components/edit-event.js';
 import {generateFilters} from './mock/filter.js';
-import {generatePoint} from './mock/trip-point.js';
-
-const POINTS_COUNT = 3;
+import {generatePoints} from './mock/trip-point.js';
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -21,11 +19,17 @@ const siteTripsElement = siteMainElement.querySelector(`.trip-events`);
 const filters = generateFilters();
 render(siteTripInfoElement, createSiteMenuTemplate(), `afterbegin`);
 render(siteControlsElement, createControlsMenuTemplate(filters), `afterbegin`);
-render(siteTripsElement, createTripEventTemplate(), `afterbegin`);
+// render(siteTripsElement, createNewPointTemplate(), `afterbegin`);
 render(siteTripsElement, createTripDaysTemplate(), `beforeend`);
 const siteListElement = document.querySelector(`.trip-events__list`);
 
-for (let i = 0; i < POINTS_COUNT; i++) {
-  render(siteListElement, createPointsListItemsTemplate(), `beforeend`);
-}
+const eventsListData = generatePoints(15);
+eventsListData.forEach((item) => {
+  render(siteListElement, createPointsListItemsTemplate(item), `beforeend`);
+});
+
+eventsListData.forEach((item) => {
+  console.log(item);
+  render(siteTripsElement, createNewPointTemplate(item), `afterbegin`);
+});
 render(siteListElement, createEditEventTemplate(), `afterbegin`);

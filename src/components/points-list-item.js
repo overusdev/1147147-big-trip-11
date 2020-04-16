@@ -1,11 +1,11 @@
-export const createPointsListItemsTemplate = () => {
+export const createPointsListItemsTemplate = (item) => {
   return (
     `<li class="trip-events__item">
       <div class="event">
         <div class="event__type">
             <img class="event__type-icon" width="42" height="42" src="img/icons/sightseeing.png" alt="Event type icon">
                     </div>
-            <h3 class="event__title">Sightseeing in Chamonix</h3>
+            <h3 class="event__title">${item.pointType} to ${item.destination.place}</h3>
 
             <div class="event__schedule">
             <p class="event__time">

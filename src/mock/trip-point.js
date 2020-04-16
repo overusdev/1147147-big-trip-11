@@ -19,44 +19,57 @@ const generatePoint = () => {
 
   // debugger
 
-  return [
-    {
-      pointType: `Taxi`,
-      price: 10,
-      beginTime: `24/12/2019 15:00`,
-      endTime: `25/12/2019 16:00`,
-      destination: {
-        title: ``,
-        description: generateDescriptionText(),
-        pictures: [
-          `http://picsum.photos/248/152?r=${Math.random()}`,
-          `http://picsum.photos/248/152?r=${Math.random()}`,
-          `http://picsum.photos/248/152?r=${Math.random()}`,
-          `http://picsum.photos/248/152?r=${Math.random()}`,
-        ]
-      },
-      additionalOptions: [
-        {
-          option: ``,
-          price: ``
-        },
-        {
-          option: ``,
-          price: ``
-        },
-        {
-          option: ``,
-          price: ``
-        },
-        {
-          option: ``,
-          price: ``
-        },
+  return {
+    pointType: `Taxi`,
+    price: 10,
+    beginTime: `24/12/2019 15:00`,
+    endTime: `25/12/2019 16:00`,
+    destination: {
+      place: [
+        `Amsterdam`,
+        `Geneva`,
+        `Chamonix`,
+        `Saint Petersburg`,
+      ],
+      description: generateDescriptionText(),
+      pictures: [
+        `http://picsum.photos/248/152?r=${Math.random()}`,
+        `http://picsum.photos/248/152?r=${Math.random()}`,
+        `http://picsum.photos/248/152?r=${Math.random()}`,
+        `http://picsum.photos/248/152?r=${Math.random()}`,
       ]
     },
-    {},
-    {},
-  ];
+    additionalOptions: [
+      {
+        option: ``,
+        price: ``
+      },
+      {
+        option: ``,
+        price: ``
+      },
+      {
+        option: ``,
+        price: ``
+      },
+      {
+        option: ``,
+        price: ``
+      },
+    ]
+  };
 };
 
+const generatePoints = (count) => {
+  let result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(generatePoint());
+  }
+
+  return result;
+};
+
+generatePoints(10);
+
 export {generatePoint};
+export {generatePoints};
