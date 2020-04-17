@@ -116,8 +116,19 @@ const generatePointItem = () => {
     pointType: `Taxi`,
     wayTo: `Amsterdam`,
     price: 10,
-    beginTime: `24/12/2019 15:00`,
-    endTime: `25/12/2019 16:00`,
+    startTime: `2019-03-18T10:30`,
+    endTime: `2019-03-18T11:00`,
+    totalTime: `1H 20M`,
+    offers: [
+      {
+        offer: `Book tickets`,
+        price: 40,
+      },
+      {
+        offer: `Lunch in city`,
+        price: 30,
+      },
+    ],
     pointTypeList: [
       {
         type: `Taxi`
