@@ -2,12 +2,13 @@
 
 import {createSiteMenuTemplate} from './components/site-menu.js';
 import {createControlsMenuTemplate} from './components/controls-menu.js';
-import {createTripEventTemplate} from './components/trip-event.js';
+import {createNewPointTemplate} from './components/new-way-point.js';
 import {createTripDaysTemplate} from './components/trip-days.js';
-import {createPointsListItemsTemplate} from './components/points-list-item.js';
+import {createWayPointTemplate} from './components/way-point.js';
 import {createEditEventTemplate} from './components/edit-event.js';
-
-const POINTS_COUNT = 3;
+import {generateFilters} from './mock/filter.js';
+import {generatePoints} from './mock/trip-point.js';
+import {generateNewPoint} from './mock/trip-point.js';
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -16,13 +17,17 @@ const siteHeaderElement = document.querySelector(`.page-header`);
 const siteTripInfoElement = siteHeaderElement.querySelector(`.trip-main`);
 const siteControlsElement = siteHeaderElement.querySelector(`.trip-main__trip-controls`);
 const siteTripsElement = siteMainElement.querySelector(`.trip-events`);
+const filters = generateFilters();
 render(siteTripInfoElement, createSiteMenuTemplate(), `afterbegin`);
-render(siteControlsElement, createControlsMenuTemplate(), `afterbegin`);
-render(siteTripsElement, createTripEventTemplate(), `afterbegin`);
+render(siteControlsElement, createControlsMenuTemplate(filters), `afterbegin`);
 render(siteTripsElement, createTripDaysTemplate(), `beforeend`);
 const siteListElement = document.querySelector(`.trip-events__list`);
 
-for (let i = 0; i < POINTS_COUNT; i++) {
-  render(siteListElement, createPointsListItemsTemplate(), `beforeend`);
-}
+const eventsListData = generatePoints(15);
+eventsListData.forEach((item) => {
+  render(siteListElement, createWayPointTemplate(item), `beforeend`);
+});
+
+const newWayPointData = generateNewPoint();
+render(siteTripsElement, createNewPointTemplate(newWayPointData), `afterbegin`);
 render(siteListElement, createEditEventTemplate(), `afterbegin`);
