@@ -84,33 +84,6 @@ const generateNewPoint = () => {
   };
 };
 
-const generatePointType = () => {
-  let pointTypeList = [
-    {
-      type: `Taxi`
-    },
-    {
-      type: `Bus`
-    },
-    {
-      type: `Train`
-    },
-    {
-      type: `Ship`
-    },
-    {
-      type: `Transport`
-    },
-    {
-      type: `Drive`
-    },
-    {
-      type: `Flight`,
-      checked: true
-    },
-  ];
-};
-
 const generatePointItem = () => {
   return {
     pointType: `Taxi`,
@@ -127,30 +100,6 @@ const generatePointItem = () => {
       {
         offer: `Lunch in city`,
         price: 30,
-      },
-    ],
-    pointTypeList: [
-      {
-        type: `Taxi`
-      },
-      {
-        type: `Bus`
-      },
-      {
-        type: `Train`
-      },
-      {
-        type: `Ship`
-      },
-      {
-        type: `Transport`
-      },
-      {
-        type: `Drive`
-      },
-      {
-        type: `Flight`,
-        checked: true
       },
     ],
   };
