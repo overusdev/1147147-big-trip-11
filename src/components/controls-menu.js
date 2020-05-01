@@ -1,3 +1,26 @@
+import {BaseComponent} from "./base-component";
+
+export class FilterMarkupComponent extends BaseComponent {
+  constructor(filter, isChecked) {
+    super();
+    this._filter = filter;
+    this._isChecked = isChecked;
+  }
+
+  get isChecked() {
+    return this._isChecked;
+  }
+
+  get filter() {
+    return this._filter;
+  }
+
+  getTemplate() {
+    return createFilterMarkup(this._filter, this._isChecked);
+  }
+}
+
+
 const createFilterMarkup = (filter, isChecked) => {
   const {id, title} = filter;
   return (
@@ -7,6 +30,22 @@ const createFilterMarkup = (filter, isChecked) => {
     </div>`
   );
 };
+
+export class ControlsMenuComponent extends BaseComponent {
+  constructor(filters) {
+    super();
+    this._filters = filters;
+  }
+
+  get filters() {
+    return this._filters;
+  }
+
+  getTemplate() {
+    return createControlsMenuTemplate(this._filters);
+  }
+}
+
 export const createControlsMenuTemplate = (filters) => {
   const tripFilters = filters.map((it, i) => createFilterMarkup(it, i === 0)).join(`\n`);
 

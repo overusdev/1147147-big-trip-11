@@ -1,5 +1,11 @@
 const generateDescriptionText = () => {
-  const descriptionText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`;
+  const descriptionText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at
+    fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex,
+    convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae,
+    sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.
+    Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus.
+     In rutrum ac purus sit amet tempus.`;
 
   const textArray = descriptionText.split(`.`);
 
@@ -15,46 +21,31 @@ const generateDescriptionText = () => {
   return resultText;
 };
 
-const generateNewPoint = () => {
+export const getTrip = () => {
+  return {
+    data: [
+      {
+        id: 1,
+        day: new Date(),
+        wayPoints: generatePoints(5)
+      },
+      {
+        id: 2,
+        day: new Date(),
+        wayPoints: generatePoints(3)
+      },
+    ]
+  };
+};
 
-  // debugger
+const generateNewPoint = () => {
 
   return {
     pointType: `Taxi`,
     price: 10,
     beginTime: `24/12/2019 15:00`,
     endTime: `25/12/2019 16:00`,
-    wayTypeList: [
-      {
-        type: `Taxi`
-      },
-      {
-        type: `Bus`
-      },
-      {
-        type: `Train`
-      },
-      {
-        type: `Ship`
-      },
-      {
-        type: `Transport`
-      },
-      {
-        type: `Drive`
-      },
-      {
-        type: `Flight`,
-        checked: true
-      },
-    ],
     destination: {
-      place: [
-        `Amsterdam`,
-        `Geneva`,
-        `Chamonix`,
-        `Saint Petersburg`,
-      ],
       description: generateDescriptionText(),
       pictures: [
         `http://picsum.photos/248/152?r=${Math.random()}`,
@@ -63,25 +54,43 @@ const generateNewPoint = () => {
         `http://picsum.photos/248/152?r=${Math.random()}`,
       ]
     },
-    additionalOptions: [
+    offers: [
       {
-        option: ``,
-        price: ``
+        id: 1,
+        name: `Add luggage`,
+        price: 100
       },
       {
-        option: ``,
-        price: ``
+        id: 2,
+        name: `Switch to comfort class`,
+        price: 200
       },
       {
-        option: ``,
-        price: ``
+        id: 3,
+        name: `Add meal`,
+        price: 12000
       },
       {
-        option: ``,
-        price: ``
+        id: 4,
+        name: `Choose seats`,
+        price: 1200
       },
+      {
+        id: 5,
+        name: `Travel by train`,
+        price: 1222
+      }
     ]
   };
+};
+
+export const getMockPlaces = () => {
+  return [
+    `Amsterdam`,
+    `Geneva`,
+    `Chamonix`,
+    `Saint Petersburg`
+  ];
 };
 
 const generatePointItem = () => {
@@ -107,8 +116,8 @@ const generatePointItem = () => {
 
 const generatePoints = (count) => {
   let result = [];
+
   for (let i = 0; i < count; i++) {
-    // result.push(generateNewPoint());
     result.push(generatePointItem());
   }
 
