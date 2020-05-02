@@ -1,5 +1,22 @@
+import {BaseComponent} from "./base-component";
+
 import {eventTypeData, sortTypeData, eventTypeGroupData} from "../data/components-data";
 import {getMockPlaces} from "../mock/trip-point";
+
+export class PlaceOptionMarkupComponent extends BaseComponent {
+  constructor(place) {
+    super();
+    this._place = place;
+  }
+
+  get place() {
+    return this._place;
+  }
+
+  getTemplate() {
+    return createPlaceOptionMarkup(this._place);
+  }
+}
 
 const createPlaceOptionMarkup = (place) => {
   return (
@@ -8,6 +25,12 @@ const createPlaceOptionMarkup = (place) => {
      </option>`
   );
 };
+
+export class PlacesMarkupComponent extends BaseComponent {
+  getTemplate() {
+    return createPlacesMarkup();
+  }
+}
 
 const createPlacesMarkup = () => {
   const placesOptions = getMockPlaces().map(createPlaceOptionMarkup);
@@ -21,6 +44,12 @@ const createPlacesMarkup = () => {
       </datalist>`
   );
 };
+
+export class EventTypeMarkupComponent extends BaseComponent {
+  getTemplate() {
+    return eventTypeDataSet();
+  }
+}
 
 const eventTypeDataSet = () => {
   const elements = eventTypeData.map((item) => (`
@@ -42,6 +71,12 @@ const eventTypeDataSet = () => {
   );
 };
 
+export class TypeGroupMarkupComponent extends BaseComponent {
+  getTemplate() {
+    return eventTypeGroupDataSet();
+  }
+}
+
 const eventTypeGroupDataSet = () => {
   const elements = eventTypeGroupData.map((item) => (`
     <div class="event__type-item">
@@ -61,6 +96,11 @@ const eventTypeGroupDataSet = () => {
     </fieldset>
   `);
 };
+export class SortListMarkupComponent extends BaseComponent {
+  getTemplate() {
+    return sortListForm();
+  }
+}
 
 const sortListForm = () => {
   const elements = sortTypeData.map((item) => (`
@@ -84,6 +124,20 @@ const sortListForm = () => {
   `);
 };
 
+export class OfferMarkupComponent extends BaseComponent {
+  constructor(item) {
+    super();
+    this._item = item;
+  }
+
+  get item() {
+    return this._item;
+  }
+  getTemplate() {
+    return offerTemplate(this._item);
+  }
+}
+
 const offerTemplate = (item) => {
   return (`
     <div class="event__offer-selector">
@@ -97,6 +151,20 @@ const offerTemplate = (item) => {
   `);
 };
 
+export class PicturesMarkupComponent extends BaseComponent {
+  constructor(pictures) {
+    super();
+    this._pictures = pictures;
+  }
+
+  get pictures() {
+    return this._pictures;
+  }
+  getTemplate() {
+    return picturesContainer(this._pictures);
+  }
+}
+
 const picturesContainer = (pictures) => {
   return (`
     <div class="event__photos-tape">
@@ -104,6 +172,20 @@ const picturesContainer = (pictures) => {
     </div>
   `);
 };
+
+export class OfferContainerMarkupComponent extends BaseComponent {
+  constructor(offers) {
+    super();
+    this._offers = offers;
+  }
+
+  get offers() {
+    return this._offers;
+  }
+  getTemplate() {
+    return offerContainer(this._offers);
+  }
+}
 
 const offerContainer = (offers) => {
   const offerElements = offers.map(offerTemplate);
@@ -113,6 +195,20 @@ const offerContainer = (offers) => {
     </div>
   `);
 };
+
+export class NewPointMarkupComponent extends BaseComponent {
+  constructor(item) {
+    super();
+    this._item = item;
+  }
+
+  get item() {
+    return this._item;
+  }
+  getTemplate() {
+    return createNewPointTemplate(this._item);
+  }
+}
 
 export const createNewPointTemplate = (item) => {
 

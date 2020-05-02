@@ -1,3 +1,18 @@
+import {BaseComponent} from "./base-component";
+export class WayPointMarkupComponent extends BaseComponent {
+  constructor(item) {
+    super();
+    this._item = item;
+  }
+
+  get trip() {
+    return this._item;
+  }
+
+  getTemplate() {
+    return createWayPointTemplate(this._item);
+  }
+}
 export const createWayPointTemplate = (item) => {
   return (
     `<li class="trip-events__item">

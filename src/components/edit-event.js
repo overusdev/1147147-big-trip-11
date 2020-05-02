@@ -1,3 +1,9 @@
+import {BaseComponent} from "./base-component";
+export class EditEventMarkupComponent extends BaseComponent {
+  getTemplate() {
+    return createEditEventTemplate();
+  }
+}
 export const createEditEventTemplate = () => {
   return (
     `<li class="trip-events__item">

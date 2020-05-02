@@ -20,7 +20,6 @@ export class FilterMarkupComponent extends BaseComponent {
   }
 }
 
-
 const createFilterMarkup = (filter, isChecked) => {
   const {id, title} = filter;
   return (
