@@ -24,7 +24,6 @@ renderComponent(siteTripsElement, createSortComponent);
 
 const newWayPointData = generateNewPoint();
 const createNewPointComponent = new NewPointMarkupComponent(newWayPointData);
-// const createNewPointComponent = new EventTypeMarkupComponent();
 renderComponent(siteTripsElement, createNewPointComponent);
 
 const createSiteMenuComponent = new SiteMenuMarkupComponent();
@@ -35,7 +34,6 @@ renderComponent(siteMenuElement, createControlsMenuComponent);
 
 const createButtonMenuComponent = new SiteMenuButtonMarkupComponent();
 renderComponent(siteMenuElement, createButtonMenuComponent);
-
 
 const createTripDaysComponent = new TripDaysMarkupComponent(getTrip());
 renderComponent(siteTripsElement, createTripDaysComponent);
