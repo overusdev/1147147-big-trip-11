@@ -13,6 +13,10 @@ export class TripDaysMarkupComponent extends BaseComponent {
   getTemplate() {
     return createTripDaysTemplate(this._trip);
   }
+  setEditButtonClickHandler(handler) {
+    this._element.querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, handler);
+  }
 }
 
 export const createTripDaysTemplate = (trip) => {

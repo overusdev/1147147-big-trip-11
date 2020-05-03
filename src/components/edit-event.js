@@ -172,6 +172,10 @@ export class EditEventMarkupComponent extends BaseComponent {
   getTemplate() {
     return createEditEventTemplate(this._item);
   }
+  setSubmitHandler(handler) {
+    this._element.querySelector(`.event--edit`)
+      .addEventListener(`submit`, handler);
+  }
 }
 
 

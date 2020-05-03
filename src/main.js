@@ -38,7 +38,19 @@ renderComponent(siteMenuElement, createButtonMenuComponent);
 const createTripDaysComponent = new TripDaysMarkupComponent(getTrip());
 renderComponent(siteTripsElement, createTripDaysComponent);
 
+// const findButton = createTripDaysComponent.getTemplate().querySelector(`.event__rollup-btn`);
+
+// console.log(findButton);
+
+createTripDaysComponent.setEditButtonClickHandler(() => {
+  console.log('test');
+});
+
 const siteListElement = document.querySelector(`.trip-events__list`);
 
 const createEditEventComponent = new EditEventMarkupComponent(newWayPointData);
-renderComponent(siteListElement, createEditEventComponent);
+
+// createEditEventComponent.setSubmitHandler(() => {
+
+// });
+

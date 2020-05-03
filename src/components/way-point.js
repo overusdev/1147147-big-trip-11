@@ -12,6 +12,10 @@ export class WayPointMarkupComponent extends BaseComponent {
   getTemplate() {
     return createWayPointTemplate(this._item);
   }
+  // setEditButtonClickHandler(handler) {
+  //   this._element.querySelector(`.event__rollup-btn`)
+  //     .addEventListener(`click`, handler);
+  // }
 }
 export const createWayPointTemplate = (item) => {
   return (
