@@ -34,4 +34,4 @@ const siteListElement = document.querySelector(`.trip-events__list`);
 const newWayPointData = generateNewPoint();
 
 render(siteTripsElement, createNewPointTemplate(newWayPointData), `afterbegin`);
-render(siteListElement, createEditEventTemplate(), `afterbegin`);
+render(siteListElement, createEditEventTemplate(newWayPointData), `afterbegin`);
