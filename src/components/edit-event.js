@@ -1,9 +1,18 @@
 import {BaseComponent} from "./base-component";
 import {eventTypeData, eventTypeGroupData} from "../data/components-data";
 import {getMockPlaces} from "../mock/trip-point";
-export class EditEventMarkupComponent extends BaseComponent {
+export class eventTypeDataSetMarkupComponent extends BaseComponent {
+  constructor(place) {
+    super();
+    this._place = place;
+  }
+
+  get place() {
+    return this._place;
+  }
+
   getTemplate() {
-    return createEditEventTemplate();
+    return eventTypeDataSet(this._place);
   }
 }
 
@@ -26,6 +35,20 @@ const eventTypeDataSet = () => {
     </fieldset>`
   );
 };
+export class createPlaceOptioMarkupComponent extends BaseComponent {
+  constructor(place) {
+    super();
+    this._place = place;
+  }
+
+  get place() {
+    return this._place;
+  }
+
+  getTemplate() {
+    return createPlaceOptionMarkup(this._place);
+  }
+}
 
 const createPlaceOptionMarkup = (place) => {
   return (
@@ -34,6 +57,12 @@ const createPlaceOptionMarkup = (place) => {
     </option>`
   );
 };
+
+export class createPlacesMarkupComponent extends BaseComponent {
+  getTemplate() {
+    return createPlacesMarkup();
+  }
+}
 
 const createPlacesMarkup = () => {
   const placesOptions = getMockPlaces().map(createPlaceOptionMarkup);
@@ -47,6 +76,21 @@ const createPlacesMarkup = () => {
     </datalist>`
   );
 };
+export class eventTypeGroupMarkupComponent extends BaseComponent {
+  constructor(item) {
+    super();
+    this._item = item;
+  }
+
+  get item() {
+    return this._item;
+  }
+
+  getTemplate() {
+    return eventTypeGroupDataSet(this._item);
+  }
+}
+
 
 const eventTypeGroupDataSet = () => {
   const elements = eventTypeGroupData.map((item) => (`
@@ -68,6 +112,21 @@ const eventTypeGroupDataSet = () => {
   `);
 };
 
+export class offerMarkupComponent extends BaseComponent {
+  constructor(item) {
+    super();
+    this._item = item;
+  }
+
+  get item() {
+    return this._item;
+  }
+
+  getTemplate() {
+    return offerTemplate(this._item);
+  }
+}
+
 const offerTemplate = (item) => {
   return (`
     <div class="event__offer-selector">
@@ -81,6 +140,21 @@ const offerTemplate = (item) => {
   `);
 };
 
+export class offerContainerMarkupComponent extends BaseComponent {
+  constructor(offers) {
+    super();
+    this._offers = offers;
+  }
+
+  get offers() {
+    return this._offers;
+  }
+
+  getTemplate() {
+    return offerTemplate(this._offers);
+  }
+}
+
 const offerContainer = (offers) => {
   const offerElements = offers.map(offerTemplate);
   return (`
@@ -89,6 +163,16 @@ const offerContainer = (offers) => {
     </div>
   `);
 };
+
+export class EditEventMarkupComponent extends BaseComponent {
+  constructor(item) {
+    super();
+    this._item = item;
+  }
+  getTemplate() {
+    return createEditEventTemplate(this._item);
+  }
+}
 
 
 export const createEditEventTemplate = (item) => {
