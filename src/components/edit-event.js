@@ -169,9 +169,25 @@ export class EditEventMarkupComponent extends BaseComponent {
     super();
     this._item = item;
   }
+
+  get point() {
+    return this._item;
+  }
+
   getTemplate() {
     return createEditEventTemplate(this._item);
   }
+
+  setSaveButtonHandler(handler) {
+    this._element.querySelector(`.event__save-btn`)
+      .addEventListener(`click`, handler);
+  }
+
+  setCancelButtonHandler(handler) {
+    this._element.querySelector(`.event__cancel-btn`)
+      .addEventListener(`click`, handler);
+  }
+
   setSubmitHandler(handler) {
     this._element.querySelector(`.event--edit`)
       .addEventListener(`submit`, handler);

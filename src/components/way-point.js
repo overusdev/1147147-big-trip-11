@@ -5,17 +5,18 @@ export class WayPointMarkupComponent extends BaseComponent {
     this._item = item;
   }
 
-  get trip() {
+  get point() {
     return this._item;
   }
 
   getTemplate() {
     return createWayPointTemplate(this._item);
   }
-  // setEditButtonClickHandler(handler) {
-  //   this._element.querySelector(`.event__rollup-btn`)
-  //     .addEventListener(`click`, handler);
-  // }
+
+  setEditButtonClickHandler(handler) {
+    this._element.querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, handler);
+  }
 }
 export const createWayPointTemplate = (item) => {
   return (

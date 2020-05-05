@@ -10,6 +10,10 @@ export class BaseComponent {
     return this._element;
   }
 
+  getElement() {
+    return this._element;
+  }
+
   getTemplate() {
     return ``;
   }

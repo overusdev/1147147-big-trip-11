@@ -1,17 +1,23 @@
-'use_strict';
+import {WayPointMarkupComponent} from "./components/way-point";
+
+`use_strict`;
 
 import {SiteMenuMarkupComponent} from './components/site-menu.js';
 import {ControlsMenuComponent} from './components/controls-menu.js';
 import {SiteMenuButtonMarkupComponent} from './components/new-event-button.js';
 import {NewPointMarkupComponent} from './components/new-way-point.js';
 import {SortListMarkupComponent} from './components/sort.js';
-import {TripDaysMarkupComponent} from './components/trip-days.js';
-import {EditEventMarkupComponent} from './components/edit-event.js';
+import {TripDaysMarkupComponent, TripDayMarkupComponent} from './components/trip-days.js';
 import {generateFilters} from './mock/filter.js';
 import {generateNewPoint, getTrip} from './mock/trip-point.js';
+import {EditEventMarkupComponent} from "./components/edit-event";
 
-const renderComponent = (container, childComponent) => {
-  container.appendChild(childComponent.createElement());
+const renderComponent = (container, childComponent, place) => {
+  if (place === `before`) {
+    container.prepend(childComponent.createElement());
+  } else {
+    container.append(childComponent.createElement());
+  }
 };
 
 const siteMainElement = document.querySelector(`.page-body`);
@@ -35,22 +41,57 @@ renderComponent(siteMenuElement, createControlsMenuComponent);
 const createButtonMenuComponent = new SiteMenuButtonMarkupComponent();
 renderComponent(siteMenuElement, createButtonMenuComponent);
 
-const createTripDaysComponent = new TripDaysMarkupComponent(getTrip());
-renderComponent(siteTripsElement, createTripDaysComponent);
+const replaceToWayPoint = (container, editComponent) => {
+  const wayPointComponent = new WayPointMarkupComponent(editComponent.point);
+  const wayPointComponentElement = wayPointComponent.createElement();
+  container.replaceChild(wayPointComponentElement, editComponent.getElement());
+  wayPointComponent.setEditButtonClickHandler(() => {
+    replaceToEditWayPoint(container, wayPointComponent);
+  });
+};
 
-// const findButton = createTripDaysComponent.getTemplate().querySelector(`.event__rollup-btn`);
+const replaceToEditWayPoint = (container, wayPointComponent) => {
+  const editComponent = new EditEventMarkupComponent(wayPointComponent.point);
+  const editComponentElement = editComponent.createElement();
+  container.replaceChild(editComponentElement, wayPointComponent.getElement());
+  editComponent.setSaveButtonHandler(() => {
+    replaceToWayPoint(container, editComponent);
+  });
+};
 
-// console.log(findButton);
+const renderTripWayPoint = (container, wayPoint) => {
+  const wayPointMarkupComponent = new WayPointMarkupComponent(wayPoint);
+  renderComponent(container, wayPointMarkupComponent);
+  wayPointMarkupComponent.setEditButtonClickHandler(() => {
+    replaceToEditWayPoint(container, wayPointMarkupComponent);
+  });
+};
 
-createTripDaysComponent.setEditButtonClickHandler(() => {
-  console.log('test');
-});
+const renderTripDay = (container, tripDay) => {
+  const tripDayMarkupComponent = new TripDayMarkupComponent(tripDay);
+  const wayPoints = tripDay.wayPoints;
+  renderComponent(container, tripDayMarkupComponent);
+  const tripDayMarkupComponentElement = tripDayMarkupComponent.getElement();
+  const tripDayContainerList = tripDayMarkupComponentElement.querySelector(`.trip-events__list`);
 
-const siteListElement = document.querySelector(`.trip-events__list`);
+  wayPoints.forEach((wayPoint) => {
+    renderTripWayPoint(tripDayContainerList, wayPoint);
+  });
+};
 
-const createEditEventComponent = new EditEventMarkupComponent(newWayPointData);
 
-// createEditEventComponent.setSubmitHandler(() => {
+const renderTripDaysList = (trip) => {
+  const tripDays = trip.days;
+  const tripDaysMarkupComponent = new TripDaysMarkupComponent();
+  renderComponent(siteTripsElement, tripDaysMarkupComponent);
+  const tripDaysMarkupComponentElement = tripDaysMarkupComponent.getElement();
 
-// });
+  tripDays.forEach((tripDay) => {
+    renderTripDay(tripDaysMarkupComponentElement, tripDay);
+  });
+};
+
+const trip = getTrip();
+renderTripDaysList(trip);
+
 
