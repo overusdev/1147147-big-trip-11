@@ -1,30 +1,97 @@
-'use_strict';
+import {WayPointMarkupComponent} from "./components/way-point";
 
-import {createSiteMenuTemplate} from './components/site-menu.js';
-import {createControlsMenuTemplate} from './components/controls-menu.js';
-import {createNewPointTemplate} from './components/new-way-point.js';
-import {createTripDaysTemplate} from './components/trip-days.js';
-import {createEditEventTemplate} from './components/edit-event.js';
+`use_strict`;
+
+import {SiteMenuMarkupComponent} from './components/site-menu.js';
+import {ControlsMenuComponent} from './components/controls-menu.js';
+import {SiteMenuButtonMarkupComponent} from './components/new-event-button.js';
+import {NewPointMarkupComponent} from './components/new-way-point.js';
+import {SortListMarkupComponent} from './components/sort.js';
+import {TripDaysMarkupComponent, TripDayMarkupComponent} from './components/trip-days.js';
 import {generateFilters} from './mock/filter.js';
 import {generateNewPoint, getTrip} from './mock/trip-point.js';
+import {EditEventMarkupComponent} from "./components/edit-event";
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
+const renderComponent = (container, childComponent, place) => {
+  if (place === `before`) {
+    container.prepend(childComponent.createElement());
+  } else {
+    container.append(childComponent.createElement());
+  }
 };
 
 const siteMainElement = document.querySelector(`.page-body`);
-const siteHeaderElement = document.querySelector(`.page-header`);
-const siteTripInfoElement = siteHeaderElement.querySelector(`.trip-main`);
-const siteControlsElement = siteHeaderElement.querySelector(`.trip-main__trip-controls`);
+const siteMenuElement = document.querySelector(`.trip-main`);
 const siteTripsElement = siteMainElement.querySelector(`.trip-events`);
 const filters = generateFilters();
 
-render(siteTripInfoElement, createSiteMenuTemplate(), `afterbegin`);
-render(siteControlsElement, createControlsMenuTemplate(filters), `afterbegin`);
-render(siteTripsElement, createTripDaysTemplate(getTrip()), `beforeend`);
+const createSortComponent = new SortListMarkupComponent();
+renderComponent(siteTripsElement, createSortComponent);
 
-const siteListElement = document.querySelector(`.trip-events__list`);
 const newWayPointData = generateNewPoint();
+const createNewPointComponent = new NewPointMarkupComponent(newWayPointData);
+renderComponent(siteTripsElement, createNewPointComponent);
 
-render(siteTripsElement, createNewPointTemplate(newWayPointData), `afterbegin`);
-render(siteListElement, createEditEventTemplate(), `afterbegin`);
+const createSiteMenuComponent = new SiteMenuMarkupComponent();
+renderComponent(siteMenuElement, createSiteMenuComponent);
+
+const createControlsMenuComponent = new ControlsMenuComponent(filters);
+renderComponent(siteMenuElement, createControlsMenuComponent);
+
+const createButtonMenuComponent = new SiteMenuButtonMarkupComponent();
+renderComponent(siteMenuElement, createButtonMenuComponent);
+
+const replaceToWayPoint = (container, editComponent) => {
+  const wayPointComponent = new WayPointMarkupComponent(editComponent.point);
+  const wayPointComponentElement = wayPointComponent.createElement();
+  container.replaceChild(wayPointComponentElement, editComponent.getElement());
+  wayPointComponent.setEditButtonClickHandler(() => {
+    replaceToEditWayPoint(container, wayPointComponent);
+  });
+};
+
+const replaceToEditWayPoint = (container, wayPointComponent) => {
+  const editComponent = new EditEventMarkupComponent(wayPointComponent.point);
+  const editComponentElement = editComponent.createElement();
+  container.replaceChild(editComponentElement, wayPointComponent.getElement());
+  editComponent.setSaveButtonHandler(() => {
+    replaceToWayPoint(container, editComponent);
+  });
+};
+
+const renderTripWayPoint = (container, wayPoint) => {
+  const wayPointMarkupComponent = new WayPointMarkupComponent(wayPoint);
+  renderComponent(container, wayPointMarkupComponent);
+  wayPointMarkupComponent.setEditButtonClickHandler(() => {
+    replaceToEditWayPoint(container, wayPointMarkupComponent);
+  });
+};
+
+const renderTripDay = (container, tripDay) => {
+  const tripDayMarkupComponent = new TripDayMarkupComponent(tripDay);
+  const wayPoints = tripDay.wayPoints;
+  renderComponent(container, tripDayMarkupComponent);
+  const tripDayMarkupComponentElement = tripDayMarkupComponent.getElement();
+  const tripDayContainerList = tripDayMarkupComponentElement.querySelector(`.trip-events__list`);
+
+  wayPoints.forEach((wayPoint) => {
+    renderTripWayPoint(tripDayContainerList, wayPoint);
+  });
+};
+
+
+const renderTripDaysList = (trip) => {
+  const tripDays = trip.days;
+  const tripDaysMarkupComponent = new TripDaysMarkupComponent();
+  renderComponent(siteTripsElement, tripDaysMarkupComponent);
+  const tripDaysMarkupComponentElement = tripDaysMarkupComponent.getElement();
+
+  tripDays.forEach((tripDay) => {
+    renderTripDay(tripDaysMarkupComponentElement, tripDay);
+  });
+};
+
+const trip = getTrip();
+renderTripDaysList(trip);
+
+

@@ -23,7 +23,7 @@ const generateDescriptionText = () => {
 
 export const getTrip = () => {
   return {
-    data: [
+    days: [
       {
         id: 1,
         day: new Date(),
