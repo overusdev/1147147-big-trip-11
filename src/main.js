@@ -10,14 +10,7 @@ import {TripDaysMarkupComponent, TripDayMarkupComponent} from './components/trip
 import {generateFilters} from './mock/filter';
 import {generateNewPoint, getTrip} from './mock/trip-point';
 import {EditEventMarkupComponent} from "./components/edit-event";
-
-const renderComponent = (container, childComponent, place) => {
-  if (place === `before`) {
-    container.prepend(childComponent.createElement());
-  } else {
-    container.append(childComponent.createElement());
-  }
-};
+import {renderComponent} from "./utils/render";
 
 const siteMainElement = document.querySelector(`.page-body`);
 const siteMenuElement = document.querySelector(`.trip-main`);
