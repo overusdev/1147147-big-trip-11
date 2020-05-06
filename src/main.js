@@ -1,15 +1,14 @@
-import {WayPointMarkupComponent} from "./components/way-point";
-
 `use_strict`;
 
-import {SiteMenuMarkupComponent} from './components/site-menu.js';
-import {ControlsMenuComponent} from './components/controls-menu.js';
-import {SiteMenuButtonMarkupComponent} from './components/new-event-button.js';
-import {NewPointMarkupComponent} from './components/new-way-point.js';
-import {SortListMarkupComponent} from './components/sort.js';
-import {TripDaysMarkupComponent, TripDayMarkupComponent} from './components/trip-days.js';
-import {generateFilters} from './mock/filter.js';
-import {generateNewPoint, getTrip} from './mock/trip-point.js';
+import {WayPointMarkupComponent} from "./components/way-point";
+import {SiteMenuMarkupComponent} from './components/site-menu';
+import {ControlsMenuComponent} from './components/controls-menu';
+import {SiteMenuButtonMarkupComponent} from './components/new-event-button';
+import {NewPointMarkupComponent} from './components/new-way-point';
+import {SortListMarkupComponent} from './components/sort';
+import {TripDaysMarkupComponent, TripDayMarkupComponent} from './components/trip-days';
+import {generateFilters} from './mock/filter';
+import {generateNewPoint, getTrip} from './mock/trip-point';
 import {EditEventMarkupComponent} from "./components/edit-event";
 
 const renderComponent = (container, childComponent, place) => {

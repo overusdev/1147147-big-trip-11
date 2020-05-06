@@ -1,6 +1,6 @@
-import {BaseComponent} from "./base-component";
+import {AbstractComponent} from "./abstract-component";
 
-export class FilterMarkupComponent extends BaseComponent {
+export class FilterMarkupComponent extends AbstractComponent {
   constructor(filter, isChecked) {
     super();
     this._filter = filter;
@@ -30,7 +30,7 @@ const createFilterMarkup = (filter, isChecked) => {
   );
 };
 
-export class ControlsMenuComponent extends BaseComponent {
+export class ControlsMenuComponent extends AbstractComponent {
   constructor(filters) {
     super();
     this._filters = filters;

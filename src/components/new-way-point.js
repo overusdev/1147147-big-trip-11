@@ -1,9 +1,9 @@
-import {BaseComponent} from "./base-component";
+import {AbstractComponent} from "./abstract-component";
 
 import {eventTypeData, eventTypeGroupData} from "../data/components-data";
 import {getMockPlaces} from "../mock/trip-point";
 
-export class PlaceOptionMarkupComponent extends BaseComponent {
+export class PlaceOptionMarkupComponent extends AbstractComponent {
   constructor(place) {
     super();
     this._place = place;
@@ -26,7 +26,7 @@ const createPlaceOptionMarkup = (place) => {
   );
 };
 
-export class PlacesMarkupComponent extends BaseComponent {
+export class PlacesMarkupComponent extends AbstractComponent {
   getTemplate() {
     return createPlacesMarkup();
   }
@@ -45,7 +45,7 @@ const createPlacesMarkup = () => {
   );
 };
 
-export class EventTypeMarkupComponent extends BaseComponent {
+export class EventTypeMarkupComponent extends AbstractComponent {
   getTemplate() {
     return eventTypeDataSet();
   }
@@ -71,7 +71,7 @@ const eventTypeDataSet = () => {
   );
 };
 
-export class TypeGroupMarkupComponent extends BaseComponent {
+export class TypeGroupMarkupComponent extends AbstractComponent {
   getTemplate() {
     return eventTypeGroupDataSet();
   }
@@ -97,7 +97,7 @@ const eventTypeGroupDataSet = () => {
   `);
 };
 
-export class OfferMarkupComponent extends BaseComponent {
+export class OfferMarkupComponent extends AbstractComponent {
   constructor(item) {
     super();
     this._item = item;
@@ -124,7 +124,7 @@ const offerTemplate = (item) => {
   `);
 };
 
-export class PicturesMarkupComponent extends BaseComponent {
+export class PicturesMarkupComponent extends AbstractComponent {
   constructor(pictures) {
     super();
     this._pictures = pictures;
@@ -146,7 +146,7 @@ const picturesContainer = (pictures) => {
   `);
 };
 
-export class OfferContainerMarkupComponent extends BaseComponent {
+export class OfferContainerMarkupComponent extends AbstractComponent {
   constructor(offers) {
     super();
     this._offers = offers;
@@ -169,7 +169,7 @@ const offerContainer = (offers) => {
   `);
 };
 
-export class NewPointMarkupComponent extends BaseComponent {
+export class NewPointMarkupComponent extends AbstractComponent {
   constructor(item) {
     super();
     this._item = item;

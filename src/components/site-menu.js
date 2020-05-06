@@ -1,5 +1,5 @@
-import {BaseComponent} from "./base-component";
-export class SiteMenuMarkupComponent extends BaseComponent {
+import {AbstractComponent} from "./abstract-component";
+export class SiteMenuMarkupComponent extends AbstractComponent {
   getTemplate() {
     return createSiteMenuTemplate();
   }

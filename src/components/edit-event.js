@@ -1,7 +1,7 @@
-import {BaseComponent} from "./base-component";
+import {AbstractComponent} from "./abstract-component";
 import {eventTypeData, eventTypeGroupData} from "../data/components-data";
 import {getMockPlaces} from "../mock/trip-point";
-export class eventTypeDataSetMarkupComponent extends BaseComponent {
+export class eventTypeDataSetMarkupComponent extends AbstractComponent {
   constructor(place) {
     super();
     this._place = place;
@@ -35,7 +35,7 @@ const eventTypeDataSet = () => {
     </fieldset>`
   );
 };
-export class createPlaceOptioMarkupComponent extends BaseComponent {
+export class createPlaceOptioMarkupComponent extends AbstractComponent {
   constructor(place) {
     super();
     this._place = place;
@@ -58,7 +58,7 @@ const createPlaceOptionMarkup = (place) => {
   );
 };
 
-export class createPlacesMarkupComponent extends BaseComponent {
+export class createPlacesMarkupComponent extends AbstractComponent {
   getTemplate() {
     return createPlacesMarkup();
   }
@@ -76,7 +76,7 @@ const createPlacesMarkup = () => {
     </datalist>`
   );
 };
-export class eventTypeGroupMarkupComponent extends BaseComponent {
+export class eventTypeGroupMarkupComponent extends AbstractComponent {
   constructor(item) {
     super();
     this._item = item;
@@ -112,7 +112,7 @@ const eventTypeGroupDataSet = () => {
   `);
 };
 
-export class offerMarkupComponent extends BaseComponent {
+export class offerMarkupComponent extends AbstractComponent {
   constructor(item) {
     super();
     this._item = item;
@@ -140,7 +140,7 @@ const offerTemplate = (item) => {
   `);
 };
 
-export class offerContainerMarkupComponent extends BaseComponent {
+export class offerContainerMarkupComponent extends AbstractComponent {
   constructor(offers) {
     super();
     this._offers = offers;
@@ -164,7 +164,7 @@ const offerContainer = (offers) => {
   `);
 };
 
-export class EditEventMarkupComponent extends BaseComponent {
+export class EditEventMarkupComponent extends AbstractComponent {
   constructor(item) {
     super();
     this._item = item;

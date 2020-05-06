@@ -1,7 +1,10 @@
 import {createElement} from "../utils/utils";
 
-export class BaseComponent {
+export class AbstractComponent {
   constructor() {
+    if (new.target === new.target === AbstractComponent) {
+      throw new Error(`Can't instantiate AbstractComponent, only consrete one.`);
+    }
     this._element = null;
   }
 
