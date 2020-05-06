@@ -2,7 +2,7 @@ import {createElement} from "../utils/utils";
 
 export class AbstractComponent {
   constructor() {
-    if (new.target === new.target === AbstractComponent) {
+    if (new.target === AbstractComponent) {
       throw new Error(`Can't instantiate AbstractComponent, only consrete one.`);
     }
     this._element = null;
@@ -18,7 +18,7 @@ export class AbstractComponent {
   }
 
   getTemplate() {
-    return ``;
+    throw new Error(`Abstract method not implemented: getElement.`);
   }
 
   removeElement() {
