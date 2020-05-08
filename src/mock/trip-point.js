@@ -27,7 +27,7 @@ export const getTrip = () => {
       {
         id: 1,
         day: new Date(),
-        wayPoints: generatePoints(5)
+        wayPoints: generatePoints(2)
       },
       {
         id: 2,
