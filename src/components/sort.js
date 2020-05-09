@@ -1,7 +1,7 @@
-import {BaseComponent} from "./base-component";
+import {AbstractComponent} from "./abstract-component";
 import {sortTypeData} from "../data/components-data";
 
-export class SortListMarkupComponent extends BaseComponent {
+export class SortListMarkupComponent extends AbstractComponent {
   getTemplate() {
     return sortListForm();
   }

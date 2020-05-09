@@ -1,5 +1,5 @@
-import {BaseComponent} from "./base-component";
-export class WayPointMarkupComponent extends BaseComponent {
+import {AbstractComponent} from "./abstract-component";
+export class WayPointMarkupComponent extends AbstractComponent {
   constructor(item) {
     super();
     this._item = item;

@@ -1,6 +1,6 @@
-import {BaseComponent} from "./base-component";
+import {AbstractComponent} from "./abstract-component";
 
-export class TripDaysMarkupComponent extends BaseComponent {
+export class TripDaysMarkupComponent extends AbstractComponent {
   constructor() {
     super();
   }
@@ -23,7 +23,7 @@ export const createTripDaysTemplate = () => {
   );
 };
 
-export class TripDayMarkupComponent extends BaseComponent {
+export class TripDayMarkupComponent extends AbstractComponent {
   constructor(tripItem) {
     super();
     this._tripItem = tripItem;
