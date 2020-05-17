@@ -1,4 +1,4 @@
-import {renderComponent, replace} from "../utils/render";
+import {renderComponent} from "../utils/render";
 import {WayPointMarkupComponent} from "../components/way-point";
 import {TripDaysMarkupComponent, TripDayMarkupComponent} from '../components/trip-days';
 import {EditEventMarkupComponent} from "../components/edit-event";
