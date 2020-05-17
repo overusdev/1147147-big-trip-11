@@ -8,18 +8,6 @@ const trip = getTrip();
 export class PointController {
   constructor(container) {
     this._container = container;
-    this._wayPointComponent = null;
-  }
-
-  render(wayPoint) {
-    this._wayPointComponent = new WayPointMarkupComponent(wayPoint);
-    renderComponent(this._container, this._wayPointComponent);
-  }
-}
-
-export class TripController {
-  constructor(container) {
-    this._container = container;
   }
 
   replaceToWayPoint(container, editComponent) {
@@ -38,6 +26,20 @@ export class TripController {
     editComponent.setSaveButtonHandler(() => {
       this.replaceToWayPoint(container, editComponent);
     });
+  }
+
+  render(wayPoint) {
+    const wayPointComponent = new WayPointMarkupComponent(wayPoint);
+    renderComponent(this._container, wayPointComponent);
+    wayPointComponent.setEditButtonClickHandler(() => {
+      this.replaceToEditWayPoint(this._container, wayPointComponent);
+    });
+  }
+}
+
+export class TripController {
+  constructor(container) {
+    this._container = container;
   }
 
   renderTripDay(container, tripDay) {
