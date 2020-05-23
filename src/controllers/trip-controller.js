@@ -1,5 +1,4 @@
 import {renderComponent} from "../utils/render";
-// import {WayPointMarkupComponent} from "../components/way-point";
 import {TripDaysMarkupComponent, TripDayMarkupComponent} from '../components/trip-days';
 import {PointController} from "./point-controller";
 
