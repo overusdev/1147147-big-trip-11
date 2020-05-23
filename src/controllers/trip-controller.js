@@ -1,65 +1,50 @@
-import {renderComponent, replace} from "../utils/render";
-import {WayPointMarkupComponent} from "../components/way-point";
+import {renderComponent} from "../utils/render";
 import {TripDaysMarkupComponent, TripDayMarkupComponent} from '../components/trip-days';
-import {EditEventMarkupComponent} from "../components/edit-event";
-import {getTrip} from '../mock/trip-point';
-const trip = getTrip();
-
-export class PointController {
-  constructor(container) {
-    this._container = container;
-  }
-
-  replaceToWayPoint(container, editComponent) {
-    const wayPointComponent = new WayPointMarkupComponent(editComponent.point);
-    const wayPointComponentElement = wayPointComponent.createElement();
-    container.replaceChild(wayPointComponentElement, editComponent.getElement());
-    wayPointComponent.setEditButtonClickHandler(() => {
-      this.replaceToEditWayPoint(container, wayPointComponent);
-    });
-  }
-
-  replaceToEditWayPoint(container, wayPointComponent) {
-    const editComponent = new EditEventMarkupComponent(wayPointComponent.point);
-    const editComponentElement = editComponent.createElement();
-    container.replaceChild(editComponentElement, wayPointComponent.getElement());
-    editComponent.setSaveButtonHandler(() => {
-      this.replaceToWayPoint(container, editComponent);
-    });
-  }
-
-  render(wayPoint) {
-    const wayPointComponent = new WayPointMarkupComponent(wayPoint);
-    renderComponent(this._container, wayPointComponent);
-    wayPointComponent.setEditButtonClickHandler(() => {
-      this.replaceToEditWayPoint(this._container, wayPointComponent);
-    });
-  }
-}
+import {PointController} from "./point-controller";
 
 export class TripController {
-  constructor(container) {
+  constructor(container, model) {
     this._container = container;
+    this._pointsControllers = [];
+    this._model = model;
+    this._tripDaysMarkupComponent = null;
   }
 
   renderTripDay(container, tripDay) {
     const tripDayMarkupComponent = new TripDayMarkupComponent(tripDay);
-    const wayPoints = tripDay.wayPoints;
+    const wayPoints = tripDay.points;
     renderComponent(container, tripDayMarkupComponent);
     const tripDayMarkupComponentElement = tripDayMarkupComponent.getElement();
     const tripDayContainerList = tripDayMarkupComponentElement.querySelector(`.trip-events__list`);
-    const renderTripWayPoint = new PointController(tripDayContainerList);
-    wayPoints.forEach((wayPoint) => {
-      renderTripWayPoint.render(wayPoint);
+    this._pointsControllers = wayPoints.map((wayPoint) => {
+      return new PointController(tripDayContainerList, wayPoint, `read`);
     });
+    this._pointsControllers.forEach((controller) => controller.render());
+  }
+
+  updateFilters(filtering) {
+    this._clearList();
+    this._model.setFiltering(filtering);
+    this.render();
+  }
+
+  updateSorting(sorting) {
+    this._clearList();
+    this._model.setSorting(sorting);
+    this.render();
+  }
+
+  _clearList() {
+    this._pointsControllers = [];
+    this._tripDaysMarkupComponent.getElement().remove();
+    this._tripDaysMarkupComponent.removeElement();
   }
 
   render() {
-
-    const tripDays = trip.days;
-    const tripDaysMarkupComponent = new TripDaysMarkupComponent();
-    renderComponent(this._container, tripDaysMarkupComponent);
-    const tripDaysMarkupComponentElement = tripDaysMarkupComponent.getElement();
+    const tripDays = this._model.getCurrentState();
+    this._tripDaysMarkupComponent = new TripDaysMarkupComponent();
+    renderComponent(this._container, this._tripDaysMarkupComponent);
+    const tripDaysMarkupComponentElement = this._tripDaysMarkupComponent.getElement();
     tripDays.forEach((tripDay) => {
       this.renderTripDay(tripDaysMarkupComponentElement, tripDay);
     });

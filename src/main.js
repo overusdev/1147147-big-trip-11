@@ -1,31 +1,46 @@
 `use_strict`;
 
+import {Points} from "./models/points";
+import {Trip} from "./models/trip";
 import {SiteMenuMarkupComponent} from './components/site-menu';
 import {ControlsMenuComponent} from './components/controls-menu';
 import {SiteMenuButtonMarkupComponent} from './components/new-event-button';
 import {SortListMarkupComponent} from './components/sort';
-import {generateFilters} from './mock/filter';
 import {renderComponent} from "./utils/render";
 import {TripController} from "./controllers/trip-controller";
+import API from "./api";
 
 const siteMainElement = document.querySelector(`.page-body`);
 const siteMenuElement = document.querySelector(`.trip-main`);
 const siteTripsElement = siteMainElement.querySelector(`.trip-events`);
-const filters = generateFilters();
 
-const createSortComponent = new SortListMarkupComponent();
-renderComponent(siteTripsElement, createSortComponent);
+const api = new API();
+api.getEvents().then((data) => {
+  const points = new Points(data);
+  const trip = new Trip(points.getPoints());
 
-const createSiteMenuComponent = new SiteMenuMarkupComponent();
-renderComponent(siteMenuElement, createSiteMenuComponent);
+  const sortComponent = new SortListMarkupComponent();
+  renderComponent(siteTripsElement, sortComponent);
 
-const createControlsMenuComponent = new ControlsMenuComponent(filters);
-renderComponent(siteMenuElement, createControlsMenuComponent);
+  sortComponent.setChangeSortState((sorting) => {
+    renderTripController.updateSorting(sorting);
+  });
 
-const createButtonMenuComponent = new SiteMenuButtonMarkupComponent();
-renderComponent(siteMenuElement, createButtonMenuComponent);
+  const createSiteMenuComponent = new SiteMenuMarkupComponent();
+  renderComponent(siteMenuElement, createSiteMenuComponent);
 
-const renderTrip = new TripController(siteTripsElement);
-renderTrip.render();
+  const renderTripController = new TripController(siteTripsElement, trip);
+
+  const createControlsMenuComponent = new ControlsMenuComponent();
+  renderComponent(siteMenuElement, createControlsMenuComponent);
+  renderTripController.render();
+
+  createControlsMenuComponent.setChangeFilterState((filterName) => {
+    renderTripController.updateFilters(filterName);
+  });
+
+  const createButtonMenuComponent = new SiteMenuButtonMarkupComponent();
+  renderComponent(siteMenuElement, createButtonMenuComponent);
+});
 
 
