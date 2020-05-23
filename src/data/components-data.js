@@ -61,7 +61,7 @@ export const sortTypeData = [
     value: `sort-event`
   },
   {
-    id: `sort-time`,
+    id: `sort-price`,
     label: `Price`,
     value: `sort-time`
   },

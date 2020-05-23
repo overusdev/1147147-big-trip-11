@@ -96,6 +96,7 @@ export const getMockPlaces = () => {
 const generatePointItem = () => {
   return {
     pointType: `Taxi`,
+    isFavorite: false,
     wayTo: `Amsterdam`,
     price: 10,
     startTime: `2019-03-18T10:30`,
@@ -103,11 +104,13 @@ const generatePointItem = () => {
     totalTime: `1H 20M`,
     offers: [
       {
-        offer: `Book tickets`,
+        id: 1,
+        name: `Book tickets`,
         price: 40,
       },
       {
-        offer: `Lunch in city`,
+        id: 2,
+        name: `Lunch in city`,
         price: 30,
       },
     ],

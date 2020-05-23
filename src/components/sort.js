@@ -5,6 +5,12 @@ export class SortListMarkupComponent extends AbstractComponent {
   getTemplate() {
     return sortListForm();
   }
+
+  setChangeSortState(handler) {
+    this.getElement().addEventListener(`change`, (e) => {
+      handler(e.target.id.replace(`sort-`, ``).toUpperCase());
+    });
+  }
 }
 
 const sortListForm = () => {

@@ -1,4 +1,4 @@
-import {AbstractComponent} from "./abstract-component";
+import {AbstractComponent} from "../abstract-component";
 export class WayPointMarkupComponent extends AbstractComponent {
   constructor(item) {
     super();
@@ -10,7 +10,7 @@ export class WayPointMarkupComponent extends AbstractComponent {
   }
 
   getTemplate() {
-    return createWayPointTemplate(this._item);
+    return wayPointTemplate(this._item);
   }
 
   setEditButtonClickHandler(handler) {
@@ -18,14 +18,39 @@ export class WayPointMarkupComponent extends AbstractComponent {
       .addEventListener(`click`, handler);
   }
 }
-export const createWayPointTemplate = (item) => {
+
+const selectedOffer = (offer) => {
+  return (
+    `<li class="event__offer">
+        <span class="event__offer-title">${offer.title}</span>
+        &plus;&euro;&nbsp;<span class="event__offer-price">${offer.price}</span>
+     </li>`
+  );
+};
+
+const selectedOffers = (offers) => {
+  return (
+    `<ul class="event__selected-offers">
+       ${offers.map((offer) => selectedOffer(offer)).join(`\n`)}
+     </ul>
+  `);
+}
+
+export const wayPointTemplate = (item) => {
+  const eventType = (item.type.type !== `Check`) ? item.type.type : `Check-in`;
+  const title = (item.type.group === `Activity`) ? `${eventType} in ` : `${eventType} to `;
+
   return (
     `<li class="trip-events__item">
       <div class="event">
         <div class="event__type">
             <img class="event__type-icon" width="42" height="42" src="img/icons/sightseeing.png" alt="Event type icon">
                     </div>
-            <h3 class="event__title">${item.pointType} to ${item.wayTo}</h3>
+            <h3 class="event__title">${title}${item.destinationPlace}</h3>
+
+            <p class="event__price">
+                &euro;&nbsp;<span class="event__price-value">${item.price}</span>
+            </p>
 
             <div class="event__schedule">
             <p class="event__time">
@@ -36,23 +61,9 @@ export const createWayPointTemplate = (item) => {
             <p class="event__duration">${item.totalTime}</p>
             </div>
 
-            <p class="event__price">
-            &euro;&nbsp;<span class="event__price-value">${item.price}</span>
-            </p>
-
             <h4 class="visually-hidden">Offers:</h4>
-            <ul class="event__selected-offers">
-            <li class="event__offer">
-                <span class="event__offer-title">${item.offers[0].offer}</span>
-                &plus;
-                        &euro;&nbsp;<span class="event__offer-price">${item.offers[0].price}</span>
-            </li>
-            <li class="event__offer">
-                <span class="event__offer-title">${item.offers[1].offer}</span>
-                &plus;
-                            &euro;&nbsp;<span class="event__offer-price">${item.offers[1].price}</span>
-            </li>
-            </ul>
+
+            ${selectedOffers(item.offers)}
 
             <button class="event__rollup-btn" type="button">
             <span class="visually-hidden">Open event</span>
