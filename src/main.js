@@ -1,4 +1,4 @@
-`use_strict`;
+'use_strict';
 
 import {Points} from "./models/points";
 import {Trip} from "./models/trip";
