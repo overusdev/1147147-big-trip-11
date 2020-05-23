@@ -39,8 +39,9 @@ export class TripDayMarkupComponent extends AbstractComponent {
 }
 
 export const createTripDayTemplate = (tripItem) => {
-  return (
-    `<li class="trip-days__item  day">
+  if (tripItem.dayVisible) {
+    return (
+      `<li class="trip-days__item  day">
         <div class="day__info">
             <span class="day__counter">
                 ${tripItem.day.getDate()}
@@ -52,4 +53,14 @@ export const createTripDayTemplate = (tripItem) => {
         <ul class="trip-events__list">
         </ul>
     </li>`);
+  } else {
+    return (
+      `<li class="trip-days__item  day">
+        <div class="day__info">
+        </div>
+        <ul class="trip-events__list">
+        </ul>
+    </li>`
+    );
+  }
 };

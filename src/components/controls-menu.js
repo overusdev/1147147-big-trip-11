@@ -1,39 +1,9 @@
 import {AbstractComponent} from "./abstract-component";
-
-export class FilterMarkupComponent extends AbstractComponent {
-  constructor(filter, isChecked) {
-    super();
-    this._filter = filter;
-    this._isChecked = isChecked;
-  }
-
-  get isChecked() {
-    return this._isChecked;
-  }
-
-  get filter() {
-    return this._filter;
-  }
-
-  getTemplate() {
-    return createFilterMarkup(this._filter, this._isChecked);
-  }
-}
-
-const createFilterMarkup = (filter, isChecked) => {
-  const {id, title} = filter;
-  return (
-    `<div class="trip-filters__filter">
-      <input id="filter-${id}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${id}" ${isChecked ? `checked` : ``}>
-      <label class="trip-filters__filter-label" for="filter-everything">${title}</label>
-    </div>`
-  );
-};
+import {EVENT_FILTERS} from "../mock/filter";
 
 export class ControlsMenuComponent extends AbstractComponent {
-  constructor(filters) {
+  constructor() {
     super();
-    this._filters = filters;
   }
 
   get filters() {
@@ -43,10 +13,32 @@ export class ControlsMenuComponent extends AbstractComponent {
   getTemplate() {
     return createControlsMenuTemplate(this._filters);
   }
+
+  setChangeFilterState(handler) {
+    this.getElement().querySelector(`form`)
+      .addEventListener(`change`, (e) => {
+        handler(e.target.id.replace(`filter-`, ``).toUpperCase());
+      });
+  }
+
+  setChangeTabState(handler) {
+    this.getElement().querySelector(`form`)
+      .addEventListener(`change`, handler);
+  }
 }
 
-export const createControlsMenuTemplate = (filters) => {
-  const tripFilters = filters.map((it, i) => createFilterMarkup(it, i === 0)).join(`\n`);
+const createFilterMarkup = (filter, isChecked) => {
+  const {id, title} = filter;
+  return (
+    `<div class="trip-filters__filter">
+      <input id="filter-${id}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${id}" ${isChecked ? `checked` : ``}>
+      <label class="trip-filters__filter-label" for="filter-${id}">${title}</label>
+    </div>`
+  );
+};
+
+export const createControlsMenuTemplate = () => {
+  const tripFilters = EVENT_FILTERS.map((it, i) => createFilterMarkup(it, i === 0)).join(`\n`);
   return (
     `<div class="trip-main__trip-controls  trip-controls">
       <h2 class="visually-hidden">Switch trip view</h2>
